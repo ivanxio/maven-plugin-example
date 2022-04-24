@@ -14,7 +14,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<maven.clean.plugin.version>3.2.0</maven.clean.plugin.version>
+		<maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>
+		<maven.compile.plugin.version>3.8.0</maven.compile.plugin.version>
+		<maven.surefire.plugin.version>3.0.0-M6</maven.surefire.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -30,24 +32,37 @@
 		<pluginManagement>
 			<!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
 			<plugins>
-				<!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+				<!-- See -> https://maven.apache.org/ref/current/maven-core/lifecycles.html -->
+				<!--  Clean lifecycle. -->
+				<!-- 
+					It is used to clean the working directory. 
+				-->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>${maven.clean.plugin.version}</version>
 				</plugin>
-				<!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+				<!-- Default lifecycle -->
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>3.0.2</version>
 				</plugin>
+				<!--
+					It is used to compile the Java source file. 
+				-->
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.0</version>
+					<version>${maven.compile.plugin.version}</version>
 				</plugin>
+				<!--
+					It is used to run the unit test.
+					This plugin works with Junit dependency.
+				-->
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.22.1</version>
+					<version>${maven.surefire.plugin.version}</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
@@ -61,7 +76,7 @@
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>2.8.2</version>
 				</plugin>
-				<!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+				<!-- site lifecycle -->
 				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
 					<version>3.7.1</version>
@@ -86,6 +101,18 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<!-- This configuration indentifies the usage of deprecated APIs in the code. -->
+					<compilerArgument>-Xlint:deprecation</compilerArgument>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
